@@ -1,0 +1,38 @@
+{
+    "name": "logger-jquery-plugin",
+    "version": "0.1.0",
+    "title": "jQuery.logger plugin",
+    "author": {
+        "name": "Sergey Koloney",
+        "url": "http://github.com/PieceOfMeat"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "MIT-LICENSE.txt"
+        },
+        {
+            "type": "GPL",
+            "url": "GPL-LICENSE.txt"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">=1.6.1"
+    },
+    "description": "Logging component for jQuery. Supports several types of presentation, and can handle several viewers and one time",
+    "keywords": [
+        "log",
+        "logger",
+        "messages"
+    ],
+    "homepage": "https://github.com/PieceOfMeat/logger-jquery-plugin",
+    "contributors": [
+        {
+            "name": "Sergey Koloney",
+            "url": "https://github.com/PieceOfMeat/"
+        }
+    ],
+    "files": [
+        "src"
+    ]
+}

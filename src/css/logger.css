@@ -1,0 +1,18 @@
+.logger {
+	font-family: Helvetica,Geneva,sans-serif;
+	width: 500px;
+}
+
+.logger p {margin: 0; padding: 0;}
+
+.logger div.logger_topic {margin: 3px 0;}
+.logger p {padding-left: 15px; border-bottom: 1px solid lightgray;}
+.logger p.logger_title {font-weight: bold; padding-left: 5px; cursor: default;}
+
+.logger p.debug {color: darkgreen;}
+.logger p.info {color: black;}
+.logger p.warn {color: darkorange;}
+.logger p.error {color: red;}
+
+.logger select.logger_topic_filter,
+.logger select.logger_level_filter { width: 100px; margin: 1px 3px; }

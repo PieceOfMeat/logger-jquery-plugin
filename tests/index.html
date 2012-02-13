@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>testing</title>
+
+	<link rel="stylesheet" type="text/css" href="../src/css/logger.css" />
+
+	<script src="../src/jquery.js"></script>
+	<script src="../src/jquery.logger.js"></script>
+
+	<script>
+
+		$(function() {
+			/*
+			$.log.addView({type: 'console', 'levelFilter': 'debug'}, 'console');
+
+			$.log('--------- base testing ----------');
+			$.log.debug('debug via alias');
+			$.log('default via log');
+			$.log('warn via log', 'warn');
+
+			$.log.options.defaultLoggingLevel = 'error';
+			$.log('default error via log');
+
+			$.log.options.defaultLoggingLevel = 'info';
+
+			$.log.deleteView('console');
+
+			$.log.addView({
+					type: 'pageList',
+					block: $('.test'),
+					levelFilter: 'info',
+					topicFilter: ['*']
+				}, 'block');
+			$.log.addView({
+					type: 'window',
+					cssFile: 'file:///D:/Work/logger/src/css/logger.css',
+					blockViewer: 'pageList',
+					levelFilter: 'debug',
+					topicFilter: ['topic1', 'topic2']
+				}, 'window');
+
+
+			$.log.warn('-------- output level debug ----------');
+			$.log.debug('debug via alias, raw');
+			$.log.warn('warn via alias, raw');
+
+			$.log('info msg for topic 1', 'info', 'topic1');
+			$.log('warn msg for topic 1', 'warn', 'topic1');
+			$.log('error msg for topic 1', 'error', 'topic1');
+			$.log('debug msg for topic 2', 'debug', 'topic2');
+			$.log('error msg for topic 2', 'error', 'topic2');
+			$.log('debug msg for topic 1', 'debug', 'topic1');
+
+			$.log('default (info) msg for topic 1', 'topic1');
+			*/
+
+			$.extend($.log.options, {defaultLevel: 'warn'});
+
+			// this will create 6 alias functions
+			$.log.setLoggingLevels(['debug', 'info', 'medium', 'warn', 'error', 'fatal_error']);
+
+
+			// This view will accumulate only warn, error and fatal_error messages from all topics
+			$.log.addView({
+				type: 'pageTopics',
+				block: $('#log'),
+				levelFilter: 'warn'
+			});
+
+			// This view will accumulate all 'info' and higher messages from topic 'core_system' in separate window with ability for filtering provided by pageList
+			$.log.addView({
+				type: 'window',
+				pageViewer: 'pageList',
+				levelFilter: 'info',
+				topicFilter: ['core_system']
+			});
+
+			$.log('message 1', 'core_system'); // level: 'info', topic: 'core_system'
+			$.log.fatal_error('fatal error 1'); // level: 'fatal_error', topic: 'raw'
+			$.log('warning 1', 'warn'); // level: 'warn', topic: 'raw'
+		});
+	</script>
+</head>
+<body>
+	<div class="test"></div>
+	<div id="log"></div>
+</body>
+</html>
