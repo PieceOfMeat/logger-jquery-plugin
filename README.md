@@ -36,19 +36,19 @@ Plugin options are stored in $.log.options object:
 <tr>
   <td>defaultLoggingLevel</td>
   <td>If you use $.log() function without specifying logging level, defaultLoggingLevel will be used as default</td>
-  <td>info</td>
+  <td>'info'</td>
 </tr>
 
 <tr>
   <td>defaultLevelFilter</td>
   <td>Default level filter for any new viewer</td>
-  <td>info</td>
+  <td>'info'</td>
 </tr>
 
 <tr>
   <td>defaultTopicFilter</td>
   <td>Default topic filter for any new viewer</td>
-  <td>['raw', '*']</td>
+  <td>['*']</td>
 </tr>
 </table>
 
@@ -177,7 +177,8 @@ Logger module provides several types of viewing components. We can specify any n
         levelFilter: 'warn'
     });
 
-    // This view will accumulate all 'info' and higher messages from topic 'core_system' in separate window with ability for filtering provided by pageList
+    // This view will accumulate all 'info' and higher messages from topic 'core_system' in separate window
+    // with ability for filtering provided by pageList
     $.log.addView({
         type: 'window',
         pageViewer: 'pageList',
