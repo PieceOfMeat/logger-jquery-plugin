@@ -1,7 +1,7 @@
 {
-    "name": "logger-jquery-plugin",
+    "name": "logger",
     "version": "0.1.0",
-    "title": "jQuery.log()",
+    "title": "Logger: logging component for jQuery",
     "author": {
         "name": "Sergey Koloney",
         "url": "http://github.com/PieceOfMeat"

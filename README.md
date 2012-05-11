@@ -9,16 +9,15 @@ Logging component for jQuery with ability to classify log messages by importance
   - Any number of viewing components with individual filters by logging level and topic
   - Ability to add own viewing components
 
-
 ### Usage
 
-Before using logger module, we must add one or more viewing components. as described below. To send message to logger simply add `$.log(message, level, topic)` and message will be transmitted to all views which filters allow specified level and topic.
+Before using logger module, one or more viewing components must be added to logger, as described below. `$.log(message, level, topic)` will transmit message to all views which filters allow specified level and topic.
 
-You can omit `level` or `topic` parameters
+`level` or `topic` parameters can be omitted
 
 ### Options
 
-Plugin options are stored in $.log.options object:
+Plugin options are stored in `$.log.options` object:
 
 <table>
 <tr>
@@ -61,20 +60,22 @@ You can redefine any of plugin options:
 
 ### Logging levels
 
-There is four predefined logging levels listed from less to high priority: debug, info, warn, error. Level is described by simple id string. For each of these levels exists alias function:
+Initially there is four predefined logging levels listed from low to high priority: debug, info, warn, error. Level is described by simple id string. For each of these levels exists alias function:
 
     $.log.debug(message, topic)
     $.log.info(message, topic)
     $.log.warn(message, topic)
     $.log.error(message, topic)
 
-You can change logging levels list by changing `$.log.options.loggingLevels` option, but if you want logger to create convenient aliases for them, you can use function
+You can change logging levels list by changing `$.log.options.loggingLevels` option, but if you want logger to create convenient aliases for them, you must use function
 
     $.log.setLoggingLevels(levels);
 
+where `levels` is a new list of level ids from low to high priority. Level id is an unique string containing latin letters or digits, without whitespaces.
+
 ### Topics
 
-`topic` parameter is optional in $.log function and alias functions. If it is owitted, $.log.options.defaultTopic (default 'raw') will be used to separate other topics from "raw" logging messages. Some viewers separate different topics into different blocks, some provide filters to analyze logs.
+`topic` parameter is optional in `$.log()` function and alias functions. If it is owitted, `$.log.options.defaultTopic` (by default 'raw') will be used to separate other topics from "raw" logging messages. Some viewers separate different topics into different blocks, some provide filters to analyze logs by topic.
 
 When creating new viewer, we can specify its topic filter. Filter is an array of plain strings representing allowed topics. Default filter is ['*'], which passes all topics. We can build hierarchy of topics depending on logical structure of our system. Each level is separated by dot. For example, if we have module with several submodules we can have following topics hierarchy:
 
@@ -84,7 +85,7 @@ When creating new viewer, we can specify its topic filter. Filter is an array of
     Submodule3 => 'module_name.submodule_3_name'
     Submodule3.Submodule3_1 => 'module_name.submodule_3_name.submodule_3_1_Name'
 
-Then we can specify filter ['submodule_2_name', 'submodule_3_name'] for logging only Submodule2, Submodule3 and Submodule3.Submodule3_1, or we can specify filter [module_name] for logging module with all its submodules.
+Then we can specify filter `['submodule_2_name', 'submodule_3_name']` for logging only Submodule2, Submodule3 and Submodule3.Submodule3_1, or we can use `[module_name]` filter for logging module with all its submodules.
 
 ### Viewing components
 
@@ -164,8 +165,6 @@ Logger module provides several types of viewing components. We can specify any n
 
 ### Examples
 
-    $.extend($.log.options, {defaultLevel: 'warn'});
-
     // this will create 6 alias functions
     $.log.setLoggingLevels(['debug', 'info', 'medium', 'warn', 'error', 'fatal_error']);
 
@@ -189,3 +188,11 @@ Logger module provides several types of viewing components. We can specify any n
     $.log('message 1', 'core_system'); // level: 'info', topic: 'core_system'
     $.log.fatal_error('fatal error 1'); // level: 'fatal_error', topic: 'raw'
     $.log('warning 1', 'warn'); // level: 'warn', topic: 'raw'
+
+### Adding new viewer types
+
+You can extend set of available viewers simply adding new viewer constructor to `$.log.views` object. Object created by this constructor must have `output(message, level, topic)` function, which will be automatically invoked when new message is received by logger and its level and topic satisfies viewer filters.
+Arguments of `output` function:
+`message` - actual message
+`level` - level of message
+`topic` - topic of message
